@@ -1,5 +1,5 @@
 # deepfolders
-A tool to recursively create project folders based on templates.
+A tool to programatically create project folders based on templates.
 
 This tool has the shape of a simple python script.  It takes a df_folder.ods description of a project folder structure, and some templates (that can be stored in filesystem, or accessible via URL), and creates the project skeleton.
 
