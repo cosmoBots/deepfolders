@@ -47,7 +47,7 @@ def create_folder(project_path):
 
             if len(datarow) > const_obs_column_number:
                 obs_txt = datarow[const_obs_column_number]
-                print ("* Description : " + obs_txt)
+                # print ("* Description : " + obs_txt)
 
             if len(datarow) > const_template_column_number:
                 template_path = datarow[const_template_column_number]
@@ -89,8 +89,10 @@ def create_folder(project_path):
                                 readme_path = inner_file_path + "/" + const_readme_file_name
                                 if not os.path.exists(readme_path):
                                     file = codecs.open(readme_path,"w","utf-8")
-                                    file.write("ident: " + str(sub_data_list[cur_step_inner][const_inner_ident_column_number]))
-                                    file.write("\r\nname: " + str(sub_data_list[cur_step_inner][const_inner_name_column_number]))
+                                    file.write("ident: ") 
+                                    file.write((sub_data_list[cur_step_inner][const_inner_ident_column_number]))
+                                    file.write("\r\nname: ")
+                                    file.write(sub_data_list[cur_step_inner][const_inner_name_column_number])
                                     file.write("\r\ndescription")
                                     file.write("\r\n===========\r\n")
                                     file.write(sub_data_list[cur_step_inner][const_inner_desc_column_number])
