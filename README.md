@@ -21,6 +21,8 @@ There are a lot of them.  TODO: Describe them.
 
 Download it, open a prompt in the directory 'myproject' and run 'python df_run.py'
 
+Please be sure you have previously installed pyexcel_ods using 'pip install pyexcel_ods' (with or without 'sudo' depending on your platform)
+
 After the sample project structure is created, go and play adding items in the df_list.ods files spread through the project folder.  Execute same script again.
 
 After that, figure how to change the templates in the templates folder to tailor this solution to you own needs.
