@@ -25,7 +25,7 @@ const_list_endcolumn = 2
 const_list_tab = "List"
 const_readme_file_name = "README.txt"
 
-def create_folder(project_path, df_folder_path):
+def create_folder(project_path, df_folder_path, initial = False):
     last_df_folder_path = ""
     if len(df_folder_path)>0:
         prj_folder_file_path = df_folder_path
@@ -66,6 +66,9 @@ def create_folder(project_path, df_folder_path):
                         copyfile(template_path, file_path)
                     else:
                         last_df_folder_path = template_path
+                else:
+                    if base_name == const_df_folder_name:
+                        last_df_folder_path = file_path
 
                 print("const_list_file_name: #" + const_list_file_name + "#")
                 print("Basename of current file_path: #" + base_name + "#")
@@ -120,9 +123,38 @@ def create_folder(project_path, df_folder_path):
 
                             cur_step_inner += 1
                 else:
-                    if base_name == const_item_file_name:
-                        print ("* TODO: execute actions corresponding to the file " + const_item_file_name)
+                    if base_name == const_item_file_name and not(initial):
+                        print("*************** File detected as Item file ******************")
+                        directory = os.path.dirname(file_path)
+                        template_path = directory + "/" + const_folder_def_file_name
+                        print ("* Template path for recursive folder must be in the path: " + template_path)
+                        if not (os.path.exists(template_path)):
+                            template_path = last_df_folder_path
+                            df_folder_template_exists = os.path.exists(last_df_folder_path)
+                        else:
+                            print("*************** TEMPLATE EXISTS ******************")
+                            df_folder_template_exists = True
 
+                        if df_folder_template_exists:
+                            print("***** Template for recursive folder found")
+                            inner_file_path = directory + "/" + "item"
+                            print("inner_file_path: " + inner_file_path)
+                            if not os.path.exists(inner_file_path):
+                                os.makedirs(inner_file_path)
+
+                            readme_path = inner_file_path + "/" + const_readme_file_name
+                            if not os.path.exists(readme_path):
+                                file = codecs.open(readme_path, "w", "utf-8")
+                                file.write("ident: ")
+                                file.write("\r\nname: ")
+                                file.write("\r\ndescription")
+                                file.write("\r\n===========\r\n")
+                                file.write("\r\n")
+                                file.close()
+                            # item_path = inner_file_path + "/" + const_folder_def_file_name
+                            # if not os.path.exists(item_path):
+                            #     copyfile(template_path, item_path)
+                            create_folder(inner_file_path, template_path, False)
             else:
                 print ("* As there is no template for this entry, it means it is a folder")
                 if not os.path.exists(file_path):
@@ -138,4 +170,4 @@ def create_folder(project_path, df_folder_path):
 
 
 
-create_folder(".",const_df_folder_name)
+create_folder(".",const_df_folder_name, True)
