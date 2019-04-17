@@ -47,16 +47,16 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
 
         if len(datarow) > const_path_column_number:
             file_path = project_path + datarow[const_path_column_number]
-            print ("* Path being processed: " + file_path.encode('utf-8'))
+            print(("* Path being processed: " + file_path).encode('utf-8'))
 
             if len(datarow) > const_obs_column_number:
                 obs_txt = datarow[const_obs_column_number]
-                # print ("* Description : " + obs_txt)
+                # print("* Description : " + obs_txt)
 
             if len(datarow) > const_template_column_number:
                 template_path = datarow[const_template_column_number]
-                print ("* Template is : " + template_path.encode('utf-8'))
-                print ("* File to be created is : " + file_path.encode('utf-8'))
+                print(("* Template is : " + template_path).encode('utf-8'))
+                print(("* File to be created is : " + file_path).encode('utf-8'))
                 # Now we treat the case where there is a pair of "list.ods" and "def_carpeta.ods" files, in order to create
                 # recursively the subfolders
                 base_name = os.path.basename(file_path)
@@ -70,13 +70,13 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                     if base_name == const_df_folder_name:
                         last_df_folder_path = file_path
 
-                print("const_list_file_name: #" + const_list_file_name.encode('utf-8') + "#")
-                print("Basename of current file_path: #" + base_name.encode('utf-8') + "#")
+                print(("const_list_file_name: #" + const_list_file_name + "#").encode('utf-8'))
+                print(("Basename of current file_path: #" + base_name + "#").encode('utf-8'))
                 if base_name == const_list_file_name:
                     print("File detected as List file")
                     directory = os.path.dirname(file_path)
                     template_path = directory + "/" + const_folder_def_file_name
-                    print ("* Template path for recursive folder must be in the path: " + template_path.encode('utf-8'))
+                    print(("* Template path for recursive folder must be in the path: " + template_path).encode('utf-8'))
                     if not(os.path.exists(template_path)):
                         template_path = last_df_folder_path
                         df_folder_template_exists = os.path.exists(last_df_folder_path)
@@ -99,7 +99,7 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                             # print("const_inner_ident_column_number: " + str(const_inner_ident_column_number))
                             if len(sub_data_list[cur_step_inner]) > const_inner_ident_column_number:
                                 inner_file_path = inner_base_dir_name + "/" + sub_data_list[cur_step_inner][const_inner_ident_column_number]
-                                # print("inner_file_path: " + inner_file_path)
+                                # print(("inner_file_path: " + inner_file_path).encode('utf-8'))
                                 if not os.path.exists(inner_file_path):
                                     os.makedirs(inner_file_path)
 
@@ -120,10 +120,10 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                                 #     copyfile(template_path, item_path)
                                 explicit_df_folder_path = inner_file_path + "/" + const_folder_def_file_name
                                 if not os.path.exists(explicit_df_folder_path):
-                                    print "Executing implicit df_folder file " + inner_file_path.encode('utf-8') + "<-" + template_path.encode('utf-8')
+                                    print(("Executing implicit df_folder file " + inner_file_path + "<-" + template_path).encode('utf-8'))
                                     create_folder(inner_file_path, template_path, False)
                                 else:
-                                    print "There exists an explicit df_folder file" + inner_file_path.encode('utf-8') + "<-" + explicit_df_folder_path.encode('utf-8')
+                                    print(("There exists an explicit df_folder file" + inner_file_path + "<-" + explicit_df_folder_path).encode('utf-8'))
                                     create_folder(inner_file_path, explicit_df_folder_path, True)
 
                             cur_step_inner += 1
@@ -132,7 +132,7 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                         # print("*************** File detected as Item file ******************")
                         directory = os.path.dirname(file_path)
                         template_path = directory + "/" + const_folder_def_file_name
-                        # print ("* Template path for recursive folder must be in the path: " + template_path)
+                        # print(("* Template path for recursive folder must be in the path: " + template_path).encode('utf-8'))
                         if not (os.path.exists(template_path)):
                             template_path = last_df_folder_path
                             df_folder_template_exists = os.path.exists(last_df_folder_path)
@@ -143,7 +143,7 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                         if df_folder_template_exists:
                             # print("***** Template for recursive folder found")
                             inner_file_path = directory #+ "/" + "item"
-                            # print("inner_file_path: " + inner_file_path)
+                            # print(("inner_file_path: " + inner_file_path).encode('utf-8'))
                             if not os.path.exists(inner_file_path):
                                 os.makedirs(inner_file_path)
 
@@ -159,10 +159,10 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
                             # item_path = inner_file_path + "/" + const_folder_def_file_name
                             # if not os.path.exists(item_path):
                             #     copyfile(template_path, item_path)
-                            # print "++++++++++++++++++Ejecuto TRUE con " + inner_file_path + " " + template_path
+                            # print(("++++++++++++++++++Ejecuto TRUE con " + inner_file_path + " " + template_path).encode('utf-8'))
                             create_folder(inner_file_path, template_path, True)
             else:
-                # print ("* As there is no template for this entry, it means it is a folder")
+                # print("* As there is no template for this entry, it means it is a folder")
                 if not os.path.exists(file_path):
                     os.makedirs(file_path)
 
@@ -177,3 +177,5 @@ def create_folder(project_path, df_folder_path, recursiveCall = False):
 
 
 create_folder(".",const_df_folder_name, False)
+
+
