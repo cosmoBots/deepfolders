@@ -9,7 +9,7 @@ TODO: Improve this documentation
 
 ## Requirements
 
-Python 2.7 and pyexcel_ods 
+Python 2.7 or Python 3.X and pyexcel_ods
 
 ## Future improvements
 
