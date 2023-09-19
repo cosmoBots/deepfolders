@@ -124,7 +124,8 @@ def create_folder(project_path, df_folder_path, recursiveCall = False, initialCa
                                 explicit_df_folder_path = inner_file_path + "/" + const_folder_def_file_name
                                 if not os.path.exists(explicit_df_folder_path):
                                     #print(("Executing implicit df_folder file " + inner_file_path + "<-" + template_path).encode('utf-8'))
-                                    create_folder(inner_file_path, template_path, False)
+                                    # Note: The recursiveCall=True of the next sentence came from some later application, but I do not recall why I needed to add it (sorry)
+                                    create_folder(inner_file_path, template_path, True)
                                 else:
                                     #print(("There exists an explicit df_folder file" + inner_file_path + "<-" + explicit_df_folder_path).encode('utf-8'))
                                     create_folder(inner_file_path, explicit_df_folder_path, True)
