@@ -1,0 +1,6 @@
+[submodule ".scripts"]
+	path = myproject/.scripts
+	url = https://github.com/cosmoBots/df_scripts.git
+[submodule "myproject/df_templates"]
+	path = myproject/.templates
+	url = https://github.com/cosmoBots/df_templates.git
