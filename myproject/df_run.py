@@ -10,7 +10,7 @@ const_path_column_number = 0
 const_obs_column_number = const_path_column_number + 1
 const_template_column_number = const_obs_column_number + 2
 const_startrow = 1
-const_endrow = 101
+const_endrow = 200
 const_list_file_name = "df_list.ods"
 const_item_file_name = "df_item.ods"
 const_folder_def_file_name = "df_folder.ods"
@@ -19,7 +19,7 @@ const_inner_name_column_number = 0
 const_inner_desc_column_number = 1
 const_structure_tab = "Structure"
 const_list_startrow = 1
-const_list_endrow = 101
+const_list_endrow = 200
 const_list_startcolumn = 0
 const_list_endcolumn = 2
 const_list_tab = "List"
@@ -109,22 +109,27 @@ def create_folder(project_path, df_folder_path, recursiveCall = False, initialCa
                                 readme_path = inner_file_path + "/" + const_readme_file_name
                                 if not os.path.exists(readme_path):
                                     file = codecs.open(readme_path,"w","utf-8")
+                                    '''
                                     file.write("ident: ")
                                     file.write((sub_data_list[cur_step_inner][const_inner_ident_column_number]))
                                     file.write("\r\nname: ")
                                     file.write(sub_data_list[cur_step_inner][const_inner_name_column_number])
                                     file.write("\r\ndescription")
                                     file.write("\r\n===========\r\n")
-                                    file.write(sub_data_list[cur_step_inner][const_inner_desc_column_number])
+                                    '''
+                                    text_to_write = sub_data_list[cur_step_inner][const_inner_desc_column_number]
+                                    reduced_inner_path = inner_file_path[2:]
+                                    text_to_write = text_to_write.replace("$$fullpath",reduced_inner_path)
+                                    file.write(text_to_write)
                                     file.write("\r\n")
                                     file.close()
+
                                 # item_path = inner_file_path + "/" + const_folder_def_file_name
                                 # if not os.path.exists(item_path):
                                 #     copyfile(template_path, item_path)
                                 explicit_df_folder_path = inner_file_path + "/" + const_folder_def_file_name
                                 if not os.path.exists(explicit_df_folder_path):
                                     #print(("Executing implicit df_folder file " + inner_file_path + "<-" + template_path).encode('utf-8'))
-                                    # Note: The recursiveCall=True of the next sentence came from some later application, but I do not recall why I needed to add it (sorry)
                                     create_folder(inner_file_path, template_path, True)
                                 else:
                                     #print(("There exists an explicit df_folder file" + inner_file_path + "<-" + explicit_df_folder_path).encode('utf-8'))
@@ -154,12 +159,19 @@ def create_folder(project_path, df_folder_path, recursiveCall = False, initialCa
                             readme_path = inner_file_path + "/" + const_readme_file_name
                             if not os.path.exists(readme_path):
                                 file = codecs.open(readme_path, "w", "utf-8")
+                                '''                                
                                 file.write("ident: ")
                                 file.write("\r\nname: ")
                                 file.write("\r\ndescription")
                                 file.write("\r\n===========\r\n")
                                 file.write("\r\n")
                                 file.close()
+                                '''                                
+                                text_to_write = sub_data_list[cur_step_inner][const_inner_desc_column_number]
+                                reduced_inner_path = inner_file_path[2:]
+                                text_to_write = text_to_write.replace("$$fullpath",reduced_inner_path)
+                                file.write(text_to_write)
+
                             # item_path = inner_file_path + "/" + const_folder_def_file_name
                             # if not os.path.exists(item_path):
                             #     copyfile(template_path, item_path)
