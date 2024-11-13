@@ -12,7 +12,6 @@ const_template_column_number = const_obs_column_number + 2
 const_startrow = 1
 const_endrow = 200
 const_list_file_name = "df_list.ods"
-const_item_file_name = "df_item.ods"
 const_folder_def_file_name = "df_folder.ods"
 const_inner_ident_column_number = 2
 const_inner_name_column_number = 0
@@ -136,47 +135,7 @@ def create_folder(project_path, df_folder_path, recursiveCall = False, initialCa
                                     create_folder(inner_file_path, explicit_df_folder_path, True)
 
                             cur_step_inner += 1
-                else:
-                    if base_name == const_item_file_name and not(recursiveCall) and not(initialCall):
-                        #print("*************** File detected as Item file ******************")
-                        directory = os.path.dirname(file_path)
-                        template_path = directory + "/" + const_folder_def_file_name
-                        # print(("* Template path for recursive folder must be in the path: " + template_path).encode('utf-8'))
-                        if not (os.path.exists(template_path)):
-                            template_path = last_df_folder_path
-                            df_folder_template_exists = os.path.exists(last_df_folder_path)
-                        else:
-                            # print("*************** TEMPLATE EXISTS ******************")
-                            df_folder_template_exists = True
 
-                        if df_folder_template_exists:
-                            # print("***** Template for recursive folder found")
-                            inner_file_path = directory #+ "/" + "item"
-                            # print(("inner_file_path: " + inner_file_path).encode('utf-8'))
-                            if not os.path.exists(inner_file_path):
-                                os.makedirs(inner_file_path)
-
-                            readme_path = inner_file_path + "/" + const_readme_file_name
-                            if not os.path.exists(readme_path):
-                                file = codecs.open(readme_path, "w", "utf-8")
-                                '''                                
-                                file.write("ident: ")
-                                file.write("\r\nname: ")
-                                file.write("\r\ndescription")
-                                file.write("\r\n===========\r\n")
-                                file.write("\r\n")
-                                file.close()
-                                '''                                
-                                text_to_write = sub_data_list[cur_step_inner][const_inner_desc_column_number]
-                                reduced_inner_path = inner_file_path[2:]
-                                text_to_write = text_to_write.replace("$$fullpath",reduced_inner_path)
-                                file.write(text_to_write)
-
-                            # item_path = inner_file_path + "/" + const_folder_def_file_name
-                            # if not os.path.exists(item_path):
-                            #     copyfile(template_path, item_path)
-                            #print(("++++++++++++++++++Ejecuto TRUE con " + inner_file_path + " " + template_path).encode('utf-8'))
-                            create_folder(inner_file_path, template_path, True)
             else:
                 #print("* As there is no template for this entry, it means it is a folder")
                 if not os.path.exists(file_path):
